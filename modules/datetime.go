@@ -3,11 +3,10 @@ package modules
 import "time"
 
 type datetime struct {
-	ticker time.Ticker
-	value  string
+	value string
 }
 
-var format = "Mon Jan 1 3:04 PM"
+var format = "Mon Jan 2 3:04 PM"
 
 func DateTime() *datetime {
 	return &datetime{

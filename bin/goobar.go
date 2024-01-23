@@ -16,7 +16,7 @@ var lemonArgs = []string{
 	"-u", "0",
 	"-f", "Terminus:style=Bold:size=12",
 	"-o", "-8",
-	"-f", "JetBrains Mono NFM:size=16",
+	"-f", "JetBrainsMono NFM:size=16",
 	"-o", "0",
 	"-f", "cryptofont:style=Regular:size=10",
 	"-o", "5",
@@ -30,6 +30,7 @@ func main() {
 	modules := map[string]Module{
 		"bspwm":    Bspwm(),
 		"datetime": DateTime(),
+		"network":  Network(),
 	}
 
 	// Create a channel to signal an update
@@ -64,7 +65,11 @@ func main() {
 			for name, mod := range modules {
 				log.Printf("%s: %s\n", name, mod)
 			}
-			bar := fmt.Sprintf("%%{l} %%{T1}%s%%{T-} %%{c}%s", modules["bspwm"], modules["datetime"])
+			bar := fmt.Sprintf("%%{l} %%{T1}%s%%{T-} %%{c}%s %%{r}%%{T2}%s%%{T-}",
+				modules["bspwm"],
+				modules["datetime"],
+				modules["network"],
+			)
 			if _, err = lemonStdin.Write([]byte(bar)); err != nil {
 				log.Println("Couldn't write to lemonbar stdin: ", err)
 			}
