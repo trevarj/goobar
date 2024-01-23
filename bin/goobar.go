@@ -15,8 +15,8 @@ var lemonArgs = []string{
 	"-a", "10",
 	"-u", "0",
 	"-f", "Terminus:style=Bold:size=12",
-	"-o", "-8",
-	"-f", "JetBrainsMono NFM:size=16",
+	"-o", "-10",
+	"-f", "JetBrainsMono NFM:size=18",
 	"-o", "0",
 	"-f", "cryptofont:style=Regular:size=10",
 	"-o", "5",
@@ -29,6 +29,7 @@ func main() {
 	// Create the modules
 	modules := map[string]Module{
 		"bspwm":    Bspwm(),
+		"system":   System(),
 		"datetime": DateTime(),
 		"network":  Network(),
 	}
@@ -61,12 +62,12 @@ func main() {
 			_ = <-updateChannel
 			// var output string
 			log.Println("Updated Results:")
-			// TODO: replace with full bar format
 			for name, mod := range modules {
 				log.Printf("%s: %s\n", name, mod)
 			}
-			bar := fmt.Sprintf("%%{l} %%{T1}%s%%{T-} %%{c}%s %%{r}%%{T2}%s%%{T-}",
+			bar := fmt.Sprintf("%%{l} %%{T1}%s%%{T-} %s %%{c}%s %%{r}%%{T2}%s%%{T-}",
 				modules["bspwm"],
+				modules["system"],
 				modules["datetime"],
 				modules["network"],
 			)
@@ -103,8 +104,6 @@ func main() {
 	}()
 
 	lemonbarCmd.Start()
-
-	// lock the bar above window manager
-
+	// TODO: lock the bar above window manager
 	lemonbarCmd.Wait()
 }
